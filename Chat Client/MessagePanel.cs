@@ -15,7 +15,8 @@ namespace Chat_Client {
         readonly int xOffsetLeft = 1;
         readonly int xOffsetRight = 1;
         readonly int boxLength = 3;
-        readonly int heightOffset = 0;
+        readonly int heightOffset = 10;
+        
 
         public MessagePanel() {
             this.AutoScroll = true;
@@ -29,6 +30,11 @@ namespace Chat_Client {
             if (m.side == Message.Side.Left) m.x = (int)((double)this.Width / (double) xSegment * (double)xOffsetLeft);
             else m.x = (int)(this.Width-((double)this.Width / (double)xSegment * (double)xOffsetRight))-m.width;
             m.fullCallibrate();
+            Program.heights[m.index] = m.height;
+ 
+            int q = heightOffset;
+            foreach (int i in Program.heights) q += i;
+            m.y = q;
 
             g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
             g2d.DrawRectangle(Pens.Black, Rectangle.Round(m.box));

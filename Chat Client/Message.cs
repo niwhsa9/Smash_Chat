@@ -19,10 +19,12 @@ namespace Chat_Client {
         public enum Side {Left, Right};
         public Side side;
         public int absoluteHeight = 0;
+        public int index;
 
-        public Message(string text, Side side) {
+        public Message(string text, Side side, int index) {
             this.text = text;
             this.side = side;
+            this.index = index;
             updateHeight();
            
         }

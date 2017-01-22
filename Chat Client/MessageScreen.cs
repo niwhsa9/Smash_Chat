@@ -27,11 +27,13 @@ namespace Chat_Client {
 
         private void submit_Click(object sender, EventArgs e) {
             string text = textEntry.Text;
-            Message msg = new Message(text, Message.Side.Right);
+            Message msg = new Message(text, Message.Side.Right, Program.mCount);
             Program.messages.Add(msg);
-            
+            Program.heights.Add(msg.height);
+            Program.mCount++;
             textEntry.Clear();
             messagePanel1.Invalidate();
+
             
         }
 

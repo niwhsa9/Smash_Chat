@@ -8,9 +8,11 @@ using System.Threading;
 
 namespace Chat_Client {
     static class Program {
+        public static int mCount = 0;
         static Form1 f1;
         static MessageScreen messageScreen;
         public static List<Message> messages = new List<Message>();
+        public static List<int> heights = new List<int>();
 
         /// <summary>
         /// The main entry point for the application.
