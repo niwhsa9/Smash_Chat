@@ -12,24 +12,44 @@ namespace Chat_Client {
         public int breakLen = 10;
         public Rectangle box;
         public int height;
+        public int width = 100;
+        public int x=0;
+        public int y=0;
         public Font font = new Font("Arial", 12.0F);
-        
+        public enum Side {Left, Right};
+        public Side side;
+        public int absoluteHeight = 0;
 
-        public Message(string text) {
+        public Message(string text, Side side) {
             this.text = text;
+            this.side = side;
+            updateHeight();
+           
+        }
+
+        public void setBreakLen() {
+            breakLen = box.Width / TextRenderer.MeasureText("c", font).Width;
+        }
+
+        public void updateHeight() {
+           
 
             StringBuilder sb = new StringBuilder(text);
             int numAppended = 0;
             for (int i = 0; i < text.Length; i++) {
                 if ((i + 1) % breakLen == 0) {
-                    sb.Insert((i + 1+numAppended), "\n");
+                    sb.Insert((i + 1 + numAppended), "\n");
                     numAppended += 1;
                 }
             }
-           // text = sb.ToString();
+            // text = sb.ToString();
             Size s = TextRenderer.MeasureText(sb.ToString() + numAppended, font);
             height = s.Height;
-            box = new Rectangle(0, 0, 100, height);
+            box = new Rectangle(x, y, width, height);
+        }
+        public void fullCallibrate() { //does a complete message setup
+            setBreakLen();
+            updateHeight();
         }
 
      

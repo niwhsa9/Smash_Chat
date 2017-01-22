@@ -8,3 +8,4 @@ J:\Ashwin\Code\Chat Client\Chat Client\obj\Debug\Chat Client.csproj.GenerateReso
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Debug\Chat Client.exe
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Debug\Chat Client.pdb
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Debug\Chat_Client.MessageScreen.resources
+J:\Ashwin\Code\Chat Client\Chat Client\obj\Debug\Chat_Client.MessagePanel.resources

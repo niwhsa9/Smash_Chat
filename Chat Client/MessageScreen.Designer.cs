@@ -27,7 +27,7 @@
             this.textEntry = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.submit = new System.Windows.Forms.Button();
-            this.messagePanel = new System.Windows.Forms.Panel();
+            this.messagePanel1 = new Chat_Client.MessagePanel();
             this.SuspendLayout();
             // 
             // textEntry
@@ -57,20 +57,22 @@
             this.submit.UseVisualStyleBackColor = false;
             this.submit.Click += new System.EventHandler(this.submit_Click);
             // 
-            // messagePanel
+            // messagePanel1
             // 
-            this.messagePanel.BackColor = System.Drawing.SystemColors.Control;
-            this.messagePanel.Location = new System.Drawing.Point(21, 30);
-            this.messagePanel.Name = "messagePanel";
-            this.messagePanel.Size = new System.Drawing.Size(384, 554);
-            this.messagePanel.TabIndex = 3;
+            this.messagePanel1.AutoScroll = true;
+            this.messagePanel1.BackColor = System.Drawing.SystemColors.Control;
+            this.messagePanel1.Location = new System.Drawing.Point(23, 24);
+            this.messagePanel1.Name = "messagePanel1";
+            this.messagePanel1.Size = new System.Drawing.Size(384, 554);
+            this.messagePanel1.TabIndex = 0;
+            this.messagePanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.messagePanel1_Paint);
             // 
             // MessageScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.Controls.Add(this.messagePanel);
+            this.Controls.Add(this.messagePanel1);
             this.Controls.Add(this.submit);
             this.Controls.Add(this.textEntry);
             this.Name = "MessageScreen";
@@ -81,8 +83,8 @@
 
         #endregion
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        public System.Windows.Forms.Panel messagePanel;
         public System.Windows.Forms.Button submit;
         public System.Windows.Forms.RichTextBox textEntry;
+        public MessagePanel messagePanel1;
     }
 }
