@@ -27,7 +27,7 @@ namespace Chat_Client {
 
         private void submit_Click(object sender, EventArgs e) {
             string text = textEntry.Text;
-            Message msg = new Message(text, Message.Side.Left);
+            Message msg = new Message(text, Message.Side.Right);
             Program.messages.Add(msg);
             
             textEntry.Clear();

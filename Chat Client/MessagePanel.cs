@@ -13,7 +13,7 @@ namespace Chat_Client {
         readonly int xSegment = 10;
         readonly int heightSegment = 10;
         readonly int xOffsetLeft = 1;
-        readonly int xOffsetRight = 3;
+        readonly int xOffsetRight = 1;
         readonly int boxLength = 3;
         readonly int heightOffset = 0;
 
@@ -27,7 +27,7 @@ namespace Chat_Client {
            
             m.box.Width = this.Width / xSegment * boxLength;
             if (m.side == Message.Side.Left) m.x = (int)((double)this.Width / (double) xSegment * (double)xOffsetLeft);
-            else m.y = ((this.Width / xSegment * xOffsetRight));
+            else m.x = (int)(this.Width-((double)this.Width / (double)xSegment * (double)xOffsetRight))-m.width;
             m.fullCallibrate();
 
             g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
