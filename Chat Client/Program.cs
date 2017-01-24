@@ -35,6 +35,8 @@ namespace Chat_Client {
         }
 
         static void startManager() {
+           
+
             Thread.Sleep(1000);
             f1.BeginInvoke(new Action(() =>
             {
@@ -64,5 +66,5 @@ TODO:
 -scrollbar on messages
 -better message icon
 -custom connection user control w/ port, ip, choose host, choose encrypt
-
+-baloon notification
 */

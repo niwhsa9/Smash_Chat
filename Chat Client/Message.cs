@@ -15,7 +15,7 @@ namespace Chat_Client {
         public int width = 100;
         public int x=0;
         public int y=0;
-        public Font font = new Font("Arial", 12.0F);
+        public Font font = new Font("Consolas", 12.0F);
         public enum Side {Left, Right};
         public Side side;
         public int absoluteHeight = 0;
@@ -25,17 +25,25 @@ namespace Chat_Client {
             this.text = text;
             this.side = side;
             this.index = index;
+            setBreakLen();
             updateHeight();
            
         }
 
+ 
         public void setBreakLen() {
-            breakLen = box.Width / TextRenderer.MeasureText("c", font).Width;
+            var cwidth = MessageScreen.g2d.MeasureString("h", SystemFonts.DefaultFont).Width;
+            breakLen = (int)(width / cwidth);
+        }
+
+        public void setPos() {
+            box.X = x;
+            box.Y = y;
         }
 
         public void updateHeight() {
-           
 
+            
             StringBuilder sb = new StringBuilder(text);
             int numAppended = 0;
             for (int i = 0; i < text.Length; i++) {
@@ -44,15 +52,12 @@ namespace Chat_Client {
                     numAppended += 1;
                 }
             }
-            // text = sb.ToString();
-            Size s = TextRenderer.MeasureText(sb.ToString() + numAppended, font);
+            Size s = TextRenderer.MeasureText(sb.ToString(), font);
             height = s.Height;
+        
             box = new Rectangle(x, y, width, height);
         }
-        public void fullCallibrate() { //does a complete message setup
-            setBreakLen();
-            updateHeight();
-        }
+    
 
      
 

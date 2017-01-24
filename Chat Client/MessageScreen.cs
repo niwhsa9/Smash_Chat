@@ -12,7 +12,7 @@ using System.Reflection;
 namespace Chat_Client {
     public partial class MessageScreen : UserControl {
        
-        Graphics g2d;
+        public static Graphics g2d;
      
         public MessageScreen() {
             InitializeComponent();
@@ -27,14 +27,17 @@ namespace Chat_Client {
 
         private void submit_Click(object sender, EventArgs e) {
             string text = textEntry.Text;
-            Message msg = new Message(text, Message.Side.Right, Program.mCount);
+            Message msg = new Message(text, Message.Side.Left, Program.mCount);
             Program.messages.Add(msg);
             Program.heights.Add(msg.height);
             Program.mCount++;
             textEntry.Clear();
             messagePanel1.Invalidate();
+            int q = 0;
+            for (int i = 0; i < msg.index; i++) q += Program.heights[i] + MessagePanel.heightOffset;
+           
+            msg.y = q;
 
-            
         }
 
         private void messagePanel1_Paint(object sender, PaintEventArgs e) {
