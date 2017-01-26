@@ -11,13 +11,13 @@ using System.Reflection;
 
 namespace Chat_Client {
     public partial class MessageScreen : UserControl {
-       
+        bool state = false;
         public static Graphics g2d;
      
         public MessageScreen() {
             InitializeComponent();
             g2d = messagePanel1.CreateGraphics();
-            messagePanel1.AutoScrollMinSize = new Size(0, 1000);
+           
         }
       
 
@@ -27,16 +27,10 @@ namespace Chat_Client {
 
         private void submit_Click(object sender, EventArgs e) {
             string text = textEntry.Text;
+
             Message msg = new Message(text, Message.Side.Left, Program.mCount);
-            Program.messages.Add(msg);
-            Program.heights.Add(msg.height);
-            Program.mCount++;
+            Program.addMessage(msg);
             textEntry.Clear();
-            messagePanel1.Invalidate();
-            int q = 0;
-            for (int i = 0; i < msg.index; i++) q += Program.heights[i] + MessagePanel.heightOffset;
-           
-            msg.y = q;
 
         }
 

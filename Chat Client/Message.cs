@@ -12,7 +12,7 @@ namespace Chat_Client {
         public int breakLen = 10;
         public Rectangle box;
         public int height;
-        public int width = 100;
+        public int width = 140;
         public int x=0;
         public int y=0;
         public Font font = new Font("Consolas", 12.0F);
@@ -56,6 +56,12 @@ namespace Chat_Client {
             height = s.Height;
         
             box = new Rectangle(x, y, width, height);
+        }
+
+        public void setY() {
+            int q = 0;
+            for (int i = 0; i < index; i++) q += Program.heights[i] + MessagePanel.heightOffset;
+            y = q;
         }
     
 
