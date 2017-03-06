@@ -12,6 +12,7 @@ using System.Text;
 
 namespace Chat_Client {
    static class Program {
+        public static string username = "duh";
         public static int mCount = 0;
         static Form1 f1;
         static MessageScreen messageScreen;
@@ -28,8 +29,12 @@ namespace Chat_Client {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             f1 = new Form1();
+            // Thread.Sleep(300);
+            //while (!f1.IsHandleCreated);
+          
             Thread networker = new Thread(new ThreadStart(startNetworker));
             Thread manager = new Thread(new ThreadStart(startManager));
+         
             networker.Start();
             manager.Start();
             try {
@@ -39,10 +44,21 @@ namespace Chat_Client {
             }
         }
 
-        static void startManager() {
-           
+        static void displayBalloon(string text) {
+            var notification = new System.Windows.Forms.NotifyIcon() {
+                Visible = true,
+                Icon = System.Drawing.SystemIcons.Information,
+                // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
+                // optional - BalloonTipTitle = "My Title",
+                BalloonTipText = text,
+            };
+            // Display for 5 seconds.
+            notification.ShowBalloonTip(5);
 
-            Thread.Sleep(1000);
+        }
+
+        static void startManager() {
+
             f1.BeginInvoke(new Action(() =>
             {
                 f1.Controls.Remove(f1.loadingImage);
@@ -57,21 +73,24 @@ namespace Chat_Client {
         static void startNetworker() {
             Thread.Sleep(1000);
 
-            IPAddress ipAddress = IPAddress.Parse("68.101.98.197");
+            IPAddress ipAddress = IPAddress.Parse("10.0.0.8");
             IPEndPoint server = new IPEndPoint(ipAddress, 9191);
 
             // Create a TCP/IP  socket.
-            client = new Socket(AddressFamily.InterNetworkV6,
+            client = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
             try {
                 client.Connect(server);
+               
                 Console.WriteLine("Connected to chat-server at {0}",
                     client.RemoteEndPoint.ToString());
                 while(true) {
                     byte[] data = new byte[1024];
                     int size = client.Receive(data);
                     string s = Encoding.ASCII.GetString(data, 0, size);
-                    addMessage(new Message(s, Message.Side.Left, mCount));
+                    string[] mData = s.Split(':');
+                    addMessage(new Message(s, Message.Side.Right, mCount));
+                        
                 }
 
 
@@ -80,7 +99,8 @@ namespace Chat_Client {
             }
         }
 
-        static void sendMessage(string msg) {
+        public static void sendMessage(string msg) {
+            msg = username + ":" + msg;
             byte[] bmsg = Encoding.ASCII.GetBytes(msg);
             client.Send(bmsg);
         }

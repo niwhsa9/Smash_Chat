@@ -35,6 +35,8 @@ namespace Chat_Client {
             //Console.WriteLine(m.box.Width);
             g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
             g2d.DrawRectangle(Pens.Black, Rectangle.Round(m.box));
+
+            
         }
 
 
@@ -43,7 +45,13 @@ namespace Chat_Client {
             foreach (Message m in Program.messages) {
                 render(m, pe.Graphics);
             }
-     
+            Message bottom = null;
+            if (Program.messages.Count > 0) {
+               bottom = Program.messages[Program.messages.Count - 1];
+               minScroll = bottom.y + bottom.height;
+            }
+          
+            this.AutoScrollMinSize = new Size(0, minScroll);
             base.OnPaint(pe);
             
         }

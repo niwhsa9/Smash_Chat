@@ -30,6 +30,7 @@ namespace Chat_Client {
 
             Message msg = new Message(text, Message.Side.Left, Program.mCount);
             Program.addMessage(msg);
+            //Program.sendMessage(text);
             textEntry.Clear();
 
         }
