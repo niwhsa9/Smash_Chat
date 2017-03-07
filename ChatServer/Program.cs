@@ -28,13 +28,13 @@ namespace ChatServer {
                 server.Bind(serverEP);
                 server.Listen(10);
                 while (handler == null) {
-                    Console.WriteLine("trying");
                     handler = server.Accept();
                     //handler.Shutdown(SocketShutdown.Both);
                     //handler.
                 }
                 send("Connected to " + ipAddress.ToString() + " on " + serverEP.Port);
                 while(true) {
+               //     Console.WriteLine("trying");
 
                 }
 

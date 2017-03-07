@@ -53,7 +53,7 @@ namespace Chat_Client {
                 BalloonTipText = text,
             };
             // Display for 5 seconds.
-            notification.ShowBalloonTip(5);
+            notification.ShowBalloonTip(3);
 
         }
 
@@ -90,6 +90,7 @@ namespace Chat_Client {
                     string s = Encoding.ASCII.GetString(data, 0, size);
                     string[] mData = s.Split(':');
                     addMessage(new Message(s, Message.Side.Right, mCount));
+                    displayBalloon(s);
                         
                 }
 
