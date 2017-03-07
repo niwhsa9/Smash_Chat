@@ -19,6 +19,8 @@ namespace Chat_Client {
         public static List<Message> messages = new List<Message>();
         public static List<int> heights = new List<int>();
         public static Socket client;
+        public static Thread networker;
+        public static Thread manager;
 
         /// <summary>
         /// The main entry point for the application.
@@ -29,14 +31,13 @@ namespace Chat_Client {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             f1 = new Form1();
-            // Thread.Sleep(300);
-            //while (!f1.IsHandleCreated);
-          
-            Thread networker = new Thread(new ThreadStart(startNetworker));
-            Thread manager = new Thread(new ThreadStart(startManager));
+          /*
+            networker = new Thread(new ThreadStart(startNetworker));
+            manager = new Thread(new ThreadStart(startManager));
          
             networker.Start();
             manager.Start();
+            */
             try {
                 Application.Run(f1);
             } catch(Exception ex) {
@@ -48,8 +49,8 @@ namespace Chat_Client {
             var notification = new System.Windows.Forms.NotifyIcon() {
                 Visible = true,
                 Icon = System.Drawing.SystemIcons.Information,
-                // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
-                // optional - BalloonTipTitle = "My Title",
+                //BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
+                BalloonTipTitle = "Smash Chat:",
                 BalloonTipText = text,
             };
             // Display for 5 seconds.
@@ -57,7 +58,7 @@ namespace Chat_Client {
 
         }
 
-        static void startManager() {
+        public static void startManager() {
 
             f1.BeginInvoke(new Action(() =>
             {
@@ -70,7 +71,7 @@ namespace Chat_Client {
             }));
             
         }
-        static void startNetworker() {
+        public static void startNetworker() {
             Thread.Sleep(1000);
 
             IPAddress ipAddress = IPAddress.Parse("10.0.0.8");
@@ -112,6 +113,7 @@ namespace Chat_Client {
             Program.mCount++;
             msg.setY();
             messageScreen.messagePanel1.Invalidate();
+           
         }
 
         

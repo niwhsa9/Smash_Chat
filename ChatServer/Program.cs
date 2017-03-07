@@ -12,7 +12,7 @@ namespace ChatServer {
         static void send(string m) {
             byte[] msg = Encoding.ASCII.GetBytes(m);
             handler.Send(msg);
-           
+            
         }
   
         static void Main(string[] args) {         
@@ -21,7 +21,6 @@ namespace ChatServer {
 
             Socket server = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
-            string data = null;
             byte[] bytes = new Byte[1024];
 
             try {
@@ -34,8 +33,14 @@ namespace ChatServer {
                 }
                 send("Connected to " + ipAddress.ToString() + " on " + serverEP.Port);
                 while(true) {
-               //     Console.WriteLine("trying");
+                     
 
+                    byte[] data = new byte[1024];
+                    Console.WriteLine("trying");
+                    int size = handler.Receive(data); //handler
+
+                    string s = Encoding.ASCII.GetString(data, 0, size);
+                    send("echo " + s);
                 }
 
             } catch (Exception e) {
