@@ -74,7 +74,7 @@ namespace Chat_Client {
         public static void startNetworker() {
             Thread.Sleep(1000);
 
-            IPAddress ipAddress = IPAddress.Parse("10.0.0.8");
+            IPAddress ipAddress = IPAddress.Parse("68.101.98.197");
             IPEndPoint server = new IPEndPoint(ipAddress, 9191);
 
             // Create a TCP/IP  socket.
