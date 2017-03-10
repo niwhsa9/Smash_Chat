@@ -27,6 +27,8 @@
             this.textEntry = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.submit = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.messagePanel1 = new Chat_Client.MessagePanel();
             this.SuspendLayout();
             // 
@@ -57,6 +59,28 @@
             this.submit.UseVisualStyleBackColor = false;
             this.submit.Click += new System.EventHandler(this.submit_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(140, 3);
+            this.textBox1.MaxLength = 10;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(146, 20);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.Text = "Username";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoCheck = false;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(327, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(83, 17);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "connected?";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // messagePanel1
             // 
             this.messagePanel1.AutoScroll = true;
@@ -72,12 +96,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.messagePanel1);
             this.Controls.Add(this.submit);
             this.Controls.Add(this.textEntry);
             this.Name = "MessageScreen";
             this.Size = new System.Drawing.Size(430, 660);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -86,5 +113,7 @@
         public System.Windows.Forms.Button submit;
         public System.Windows.Forms.RichTextBox textEntry;
         public MessagePanel messagePanel1;
+        private System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.CheckBox checkBox1;
     }
 }

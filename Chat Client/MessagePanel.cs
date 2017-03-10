@@ -27,16 +27,23 @@ namespace Chat_Client {
 
         void render(Message m, Graphics g2d) {
       
-            if (m.side == Message.Side.Right) m.x = (int)((double)this.Width / (double) xSegment * (double)xOffsetLeft);
+            if (m.side == Message.Side.Left) m.x = (int)((double)this.Width / (double) xSegment * (double)xOffsetLeft);
             else m.x = (int)(this.Width-((double)this.Width / (double)xSegment * (double)xOffsetRight))-m.width;
 
             m.setPos();
 
             //Console.WriteLine(m.box.Width);
-            g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
-            g2d.DrawRectangle(Pens.Black, Rectangle.Round(m.box));
+          
+            if (m.side == Message.Side.Right) {
+                g2d.FillRectangle(Brushes.LimeGreen, Rectangle.Round(m.box));
+                g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
+            } else {
+                g2d.FillRectangle(Brushes.Coral, Rectangle.Round(m.box));
+                g2d.DrawString(m.text, m.font, Brushes.Blue, m.box);
+            }
 
-            
+
+
         }
 
 

@@ -28,7 +28,7 @@ namespace Chat_Client {
         private void submit_Click(object sender, EventArgs e) {
             string text = textEntry.Text;
 
-            Message msg = new Message(text, Message.Side.Left, Program.mCount);
+            Message msg = new Message(text, Message.Side.Right, Program.mCount);
             Program.addMessage(msg);
             Program.sendMessage(msg.text);
             //Program.sendMessage(text);
@@ -38,6 +38,18 @@ namespace Chat_Client {
 
         private void messagePanel1_Paint(object sender, PaintEventArgs e) {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
+            Program.username = textBox1.Text;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        public void setCheckBox(bool value) {
+            checkBox1.Checked = value;
         }
     }
 }

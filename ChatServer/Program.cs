@@ -11,6 +11,10 @@ using System.Threading;
 namespace ChatServer {
 
     struct QueuedMessage {
+        public QueuedMessage(int clientID, string message) {
+            this.clientID = clientID;
+            this.message = message;
+        }
         public int clientID;
         public string message;
     }
@@ -22,24 +26,26 @@ namespace ChatServer {
         private static Thread[] client = new Thread[10];
         public static int i = 0;
         private static Thread listener;
-        public static QueuedMessage[] queue = new QueuedMessage[20];
+        
+        public static List<QueuedMessage> queue = new List<QueuedMessage>();
 
         static void send(string m, Socket handler) {
             byte[] msg = Encoding.ASCII.GetBytes(m);
             handler.Send(msg);
         }
 
-        static void listen(Socket hndl) {
+        static void listen(Socket hndl, int id) {
             try {
                 i++;
                 while (true) {
                    
                     byte[] data = new byte[1024];
-                    Console.WriteLine("trying");
+                 
                     int size = hndl.Receive(data); //handler
-
+                    
                     string s = Encoding.ASCII.GetString(data, 0, size);
-                    send("echo " + s, hndl);
+                    queue.Add(new QueuedMessage(id, s));
+                   // send("echo " + s, hndl);
 
                 }
 
@@ -60,10 +66,11 @@ namespace ChatServer {
             server.Listen(10);
             while (true) {
                 handler[i] = server.Accept();
-                client[i] = new Thread(() => listen(handler[i]));
+                Console.WriteLine(i);
+                client[i] = new Thread(() => listen(handler[i], i));
                 client[i].Start();
-                send("Connected to " + ipAddress.ToString() + " on " + serverEP.Port, handler[i]);
-               // i++;
+                send("SERVER: Connected to " + "68.101.98.197" + " on " + serverEP.Port, handler[i]);
+                //i++;
                 //handler.Shutdown(SocketShutdown.Both);
                 //handler.
             }
@@ -73,7 +80,18 @@ namespace ChatServer {
             listener = new Thread(new ThreadStart(acceptConnections)); //new ThreadStart(listen)
             listener.Start();
             while(true) {
-            Console.WriteLine(i);
+          //  Console.WriteLine(i);
+         
+                if(queue.Count > 0) {
+                    for(int i = queue.Count-1; i >= 0; i--) {
+                        for (int n = 0; n < handler.Length; n++) {
+                            if (handler[n] == null) break;
+                            if (queue[i].clientID == n) continue;
+                            send(queue[i].message, handler[n]);
+                        }
+                        queue.RemoveAt(i);
+                    }
+                } 
             }
         }
     }

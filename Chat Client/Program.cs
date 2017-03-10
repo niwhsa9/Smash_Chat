@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Chat_Client {
    static class Program {
-        public static string username = "duh";
+        public static string username = "user";
         public static int mCount = 0;
         static Form1 f1;
         static MessageScreen messageScreen;
@@ -52,9 +52,11 @@ namespace Chat_Client {
                 //BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
                 BalloonTipTitle = "Smash Chat:",
                 BalloonTipText = text,
+               
             };
             // Display for 5 seconds.
-            notification.ShowBalloonTip(3);
+            notification.ShowBalloonTip(2);
+            //notification.Dispose();
 
         }
 
@@ -82,17 +84,21 @@ namespace Chat_Client {
                 SocketType.Stream, ProtocolType.Tcp);
             try {
                 client.Connect(server);
-               
-                Console.WriteLine("Connected to chat-server at {0}",
-                    client.RemoteEndPoint.ToString());
-                while(true) {
+              
+                while (true) {
+                    /*if (client.Connected != true) {
+                        messageScreen.setCheckBox(false);
+                        client.Connect(server);
+                    }*/
                     byte[] data = new byte[1024];
                     int size = client.Receive(data);
                     string s = Encoding.ASCII.GetString(data, 0, size);
                     string[] mData = s.Split(':');
-                    addMessage(new Message(s, Message.Side.Right, mCount));
+                    addMessage(new Message(s, Message.Side.Left, mCount));
+                  //  messageScreen.setCheckBox(true);
                     displayBalloon(s);
-                        
+                  
+
                 }
 
 
@@ -123,10 +129,13 @@ namespace Chat_Client {
 /*
 TODO:
 - Setup webserver on Raspberry Pi to handle 2 way communication
-- Allow multi client connect
 - Encrypt messages
--scrollbar on messages
+-rounded boxes
+-color changing
 -better message icon
 -custom connection user control w/ port, ip, choose host, choose encrypt
+-menu
+-better UI
 -baloon notification
+-Allow better colors/multifont/bold/etc
 */
