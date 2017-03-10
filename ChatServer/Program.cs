@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Diagnostics;
+using System.ServiceProcess;
+
 
 
 namespace ChatServer {
@@ -19,11 +22,11 @@ namespace ChatServer {
         public string message;
     }
 
-    class Program {
+    class Program : ServiceBase {
         public static IPAddress ipAddress;
         public static IPEndPoint serverEP;
-        static Socket[] handler = new Socket[10];
-        private static Thread[] client = new Thread[10];
+        static List<Socket> handler = new List<Socket>();
+        private static List<Thread> client = new List<Thread>();
         public static int i = 0;
         private static Thread listener;
         
@@ -65,9 +68,9 @@ namespace ChatServer {
             server.Bind(serverEP);
             server.Listen(10);
             while (true) {
-                handler[i] = server.Accept();
+                handler.Add(server.Accept());
                 Console.WriteLine(i);
-                client[i] = new Thread(() => listen(handler[i], i));
+                client.Add(new Thread(() => listen(handler[i], i)));
                 client[i].Start();
                 send("SERVER: Connected to " + "68.101.98.197" + " on " + serverEP.Port, handler[i]);
                 //i++;
@@ -84,7 +87,7 @@ namespace ChatServer {
          
                 if(queue.Count > 0) {
                     for(int i = queue.Count-1; i >= 0; i--) {
-                        for (int n = 0; n < handler.Length; n++) {
+                        for (int n = 0; n < handler.Count; n++) {
                             if (handler[n] == null) break;
                             if (queue[i].clientID == n) continue;
                             send(queue[i].message, handler[n]);

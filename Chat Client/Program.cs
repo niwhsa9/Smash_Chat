@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Chat_Client {
    static class Program {
-        public static string username = "user";
+        public static string username = "Username";
         public static int mCount = 0;
         static Form1 f1;
         static MessageScreen messageScreen;
@@ -31,13 +31,7 @@ namespace Chat_Client {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             f1 = new Form1();
-          /*
-            networker = new Thread(new ThreadStart(startNetworker));
-            manager = new Thread(new ThreadStart(startManager));
-         
-            networker.Start();
-            manager.Start();
-            */
+     
             try {
                 Application.Run(f1);
             } catch(Exception ex) {
@@ -49,7 +43,7 @@ namespace Chat_Client {
             var notification = new System.Windows.Forms.NotifyIcon() {
                 Visible = true,
                 Icon = System.Drawing.SystemIcons.Information,
-                //BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
+          
                 BalloonTipTitle = "Smash Chat:",
                 BalloonTipText = text,
                
@@ -86,18 +80,14 @@ namespace Chat_Client {
                 client.Connect(server);
               
                 while (true) {
-                    /*if (client.Connected != true) {
-                        messageScreen.setCheckBox(false);
-                        client.Connect(server);
-                    }*/
+                   
                     byte[] data = new byte[1024];
                     int size = client.Receive(data);
                     string s = Encoding.ASCII.GetString(data, 0, size);
                     string[] mData = s.Split(':');
                     addMessage(new Message(s, Message.Side.Left, mCount));
-                  //  messageScreen.setCheckBox(true);
+                 
                     displayBalloon(s);
-                  
 
                 }
 
