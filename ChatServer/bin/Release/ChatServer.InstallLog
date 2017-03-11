@@ -1,0 +1,15 @@
+﻿Installing assembly 'J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe
+   logfile = J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe assembly.
+Committing assembly 'J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe
+   logfile = J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe assembly.
+Remove InstallState file because there are no installers.
