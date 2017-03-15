@@ -40,6 +40,7 @@
             this.textEntry.TabIndex = 0;
             this.textEntry.Text = "Type here";
             this.textEntry.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.textEntry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textEntry_KeyDown);
             // 
             // contextMenuStrip1
             // 

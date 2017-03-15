@@ -1,6 +1,7 @@
 J:\Ashwin\Code\Chat Client\Chat Client\bin\Release\Chat Client.exe.config
 J:\Ashwin\Code\Chat Client\Chat Client\bin\Release\Chat Client.exe
 J:\Ashwin\Code\Chat Client\Chat Client\bin\Release\Chat Client.pdb
+J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat Client.csprojResolveAssemblyReference.cache
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat_Client.Form1.resources
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat_Client.MessagePanel.resources
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat_Client.MessageScreen.resources
@@ -8,4 +9,3 @@ J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat_Client.Properties.Resour
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat Client.csproj.GenerateResource.Cache
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat Client.exe
 J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat Client.pdb
-J:\Ashwin\Code\Chat Client\Chat Client\obj\Release\Chat Client.csprojResolveAssemblyReference.cache

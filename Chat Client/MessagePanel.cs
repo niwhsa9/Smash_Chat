@@ -14,6 +14,7 @@ namespace Chat_Client {
         readonly int xOffsetLeft = 1;
         readonly int xOffsetRight = 1;
         public static int minScroll = 0;
+        private readonly int scrollOffset = 20;
  
         public static readonly int heightOffset = 10;
         
@@ -46,6 +47,11 @@ namespace Chat_Client {
 
         }
 
+        public void forceScrollSizeUpdate() {
+            Message bottom = null;
+            bottom = Program.messages[Program.messages.Count - 1];
+            minScroll = bottom.y + bottom.height + scrollOffset;
+        }
 
         protected override void OnPaint(PaintEventArgs pe) {
             pe.Graphics.TranslateTransform(this.AutoScrollPosition.X, this.AutoScrollPosition.Y);
@@ -55,10 +61,16 @@ namespace Chat_Client {
             Message bottom = null;
             if (Program.messages.Count > 0) {
                bottom = Program.messages[Program.messages.Count - 1];
-               minScroll = bottom.y + bottom.height;
+               minScroll = bottom.y + bottom.height + scrollOffset;
             }
           
             this.AutoScrollMinSize = new Size(0, minScroll);
+            if(Program.pushToBottom == true) {
+                Program.pushToBottom = false;
+               this.AutoScrollPosition = new Point(0, minScroll);
+                Invalidate();
+            }
+           
             base.OnPaint(pe);
             
         }

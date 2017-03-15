@@ -37,7 +37,7 @@ namespace Chat_Client {
         }
 
         private void messagePanel1_Paint(object sender, PaintEventArgs e) {
-
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e) {
@@ -50,6 +50,21 @@ namespace Chat_Client {
 
         public void setCheckBox(bool value) {
             checkBox1.Checked = value;
+        }
+
+        private void textEntry_KeyDown(object sender, KeyEventArgs e) {
+
+
+            if (e.KeyCode == Keys.Enter) {
+                
+
+                if (Control.ModifierKeys == Keys.Shift) {
+
+                } else {         
+                    e.SuppressKeyPress = true;
+                    submit.PerformClick();
+                }
+            }
         }
     }
 }

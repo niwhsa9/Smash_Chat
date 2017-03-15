@@ -21,6 +21,8 @@ namespace Chat_Client {
         public static Socket client;
         public static Thread networker;
         public static Thread manager;
+        public static bool pushToBottom = false;
+        private static bool connectState = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -66,6 +68,8 @@ namespace Chat_Client {
 
             }));
             
+       
+            
         }
         public static void startNetworker() {
             Thread.Sleep(1000);
@@ -78,22 +82,32 @@ namespace Chat_Client {
                 SocketType.Stream, ProtocolType.Tcp);
             try {
                 client.Connect(server);
-              
+                f1.BeginInvoke(new Action(() => {
+                    messageScreen.setCheckBox(true);
+                }));
+                connectState = true;
                 while (true) {
-                   
+
+                    if (connectState == true && client.Connected == false) {
+                        connectState = false;
+                        f1.BeginInvoke(new Action(() => {
+                            messageScreen.setCheckBox(false);
+                        }));
+                       
+                    }
+                    
                     byte[] data = new byte[1024];
                     int size = client.Receive(data);
                     string s = Encoding.ASCII.GetString(data, 0, size);
                     string[] mData = s.Split(':');
                     addMessage(new Message(s, Message.Side.Left, mCount));
-                 
                     displayBalloon(s);
 
                 }
 
 
             } catch (Exception e) {
-               
+                
             }
         }
 
@@ -108,8 +122,10 @@ namespace Chat_Client {
             Program.heights.Add(msg.height);
             Program.mCount++;
             msg.setY();
+            Program.pushToBottom = true;
             messageScreen.messagePanel1.Invalidate();
-           
+            // Program.pushToBottom = true;
+
         }
 
         

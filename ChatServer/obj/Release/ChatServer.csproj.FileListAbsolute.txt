@@ -1,6 +1,6 @@
 J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe.config
 J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.exe
 J:\Ashwin\Code\Chat Client\ChatServer\bin\Release\ChatServer.pdb
+J:\Ashwin\Code\Chat Client\ChatServer\obj\Release\ChatServer.csprojResolveAssemblyReference.cache
 J:\Ashwin\Code\Chat Client\ChatServer\obj\Release\ChatServer.exe
 J:\Ashwin\Code\Chat Client\ChatServer\obj\Release\ChatServer.pdb
-J:\Ashwin\Code\Chat Client\ChatServer\obj\Release\ChatServer.csprojResolveAssemblyReference.cache

@@ -15,7 +15,7 @@ namespace Chat_Client {
         public int width = 140;
         public int x=0;
         public int y=0;
-        public Font font = new Font("Comic Sans MS", 12.0F);
+        public Font font = new Font("Cambria", 12.0F, FontStyle.Bold);
         public enum Side {Left, Right};
         public Side side;
         public int absoluteHeight = 0;
@@ -42,7 +42,7 @@ namespace Chat_Client {
         }
 
         public void updateHeight() {
-            
+
             /*
             StringBuilder sb = new StringBuilder(text);
             int numAppended = 0;
@@ -56,16 +56,16 @@ namespace Chat_Client {
             height = s.Height;
             */
 
-            TextFormatFlags fmt = TextFormatFlags.Default | TextFormatFlags.WordBreak;
+            TextFormatFlags fmt = TextFormatFlags.Default | TextFormatFlags.WordBreak;  
             Size s1 = TextRenderer.MeasureText(text, font, new Size(width, 0), fmt);
-            height = s1.Height;
+            height = s1.Height + 5; //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             box = new Rectangle(x, y, width, height);
-          //  MessageBox.Show(text+ "\n" + "Actual" + s1.Height + "\n" + "Estimated " + height);
+           // MessageBox.Show(""+box.Height);
 
         }
 
         public void setY() {
-            int q = 0;
+            int q = 15;
             for (int i = 0; i < index; i++) q += Program.heights[i] + MessagePanel.heightOffset;
             y = q;
         }

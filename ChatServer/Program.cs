@@ -29,8 +29,17 @@ namespace ChatServer {
         private static List<Thread> client = new List<Thread>();
         public static int i = 0;
         private static Thread listener;
-        
         public static List<QueuedMessage> queue = new List<QueuedMessage>();
+
+        public Program() {
+            this.ServiceName = "Smash Chat Server";
+            this.EventLog.Log = "SmashChat";
+            this.CanHandlePowerEvent = true;
+            this.CanHandleSessionChangeEvent = true;
+            this.CanPauseAndContinue = true;
+            this.CanShutdown = true;
+            this.CanStop = true;
+        }
 
         static void send(string m, Socket handler) {
             byte[] msg = Encoding.ASCII.GetBytes(m);
@@ -54,8 +63,10 @@ namespace ChatServer {
 
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
-                Console.WriteLine("Closing");
-                Console.ReadKey();
+                handler.RemoveAt(id);
+                client.RemoveAt(id);
+               // Console.WriteLine("Closing");
+               // Console.ReadKey();
             }
         }
 
@@ -80,21 +91,26 @@ namespace ChatServer {
         }
 
         static void Main(string[] args) {
+         //   ServiceBase.Run(new Program());
             listener = new Thread(new ThreadStart(acceptConnections)); //new ThreadStart(listen)
             listener.Start();
             while(true) {
-          //  Console.WriteLine(i);
-         
-                if(queue.Count > 0) {
-                    for(int i = queue.Count-1; i >= 0; i--) {
-                        for (int n = 0; n < handler.Count; n++) {
-                            if (handler[n] == null) break;
-                            if (queue[i].clientID == n) continue;
-                            send(queue[i].message, handler[n]);
+                //  Console.WriteLine(i);
+                try {
+                    if (queue.Count > 0) {
+                        for (int i = queue.Count - 1; i >= 0; i--) {
+                            for (int n = 0; n < handler.Count; n++) {
+                                if (handler[n] == null) break;
+                                if (queue[i].clientID == n) continue;
+                                send(queue[i].message, handler[n]);
+                            }
+                            queue.RemoveAt(i);
                         }
-                        queue.RemoveAt(i);
                     }
-                } 
+                } catch(Exception e) {
+                    continue;
+
+                }
             }
         }
     }
