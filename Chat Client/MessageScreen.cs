@@ -42,6 +42,29 @@ namespace Chat_Client {
 
         private void textBox1_TextChanged(object sender, EventArgs e) {
             Program.username = textBox1.Text;
+            bool flag = true;
+            switch(Program.username) {
+          
+                case "SERVER":
+                    break;
+                case "server":
+                    break;
+                case "Server":
+                    break;
+                case "Ashwin":
+                    break;
+                case "ashwin":
+                    break;
+                default:
+                    flag = false;
+                    break;
+            }
+            if (flag) {
+                Program.username = "Looser";
+                textBox1.Text = Program.username;
+                
+            }
+
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e) {

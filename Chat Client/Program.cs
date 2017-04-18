@@ -7,6 +7,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using System.IO;
 
 
 
@@ -23,6 +24,7 @@ namespace Chat_Client {
         public static Thread manager;
         public static bool pushToBottom = false;
         private static bool connectState = false;
+        private static byte[] encryption = new byte[4];
 
         /// <summary>
         /// The main entry point for the application.
@@ -40,6 +42,23 @@ namespace Chat_Client {
 
             }
         }
+        /*
+        static void getEncryption() {
+            try {  
+                using (StreamReader sr = new StreamReader("EncryptKey.txt")) {
+                    // Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd();
+                    // Console.WriteLine(line);
+                    String[] data = line.Split(new char[] { ' ' });
+                    for (int i = 0; i < encryption.Length; i++) {
+                        encryption[i] = Byte.Parse(data[i]);
+                    }
+                }
+            } catch (Exception e) {
+                encryption[0] = 0;
+                encryption[1] = 1;
+            }
+        } */
 
         static void displayBalloon(string text) {
             var notification = new System.Windows.Forms.NotifyIcon() {
@@ -86,23 +105,26 @@ namespace Chat_Client {
                     messageScreen.setCheckBox(true);
                 }));
                 connectState = true;
+                int lastRecieve = 0;
                 while (true) {
 
-                    if (connectState == true && client.Connected == false) {
-                        connectState = false;
-                        f1.BeginInvoke(new Action(() => {
-                            messageScreen.setCheckBox(false);
-                        }));
-                       
-                    }
+                    //  connectState = false;
+                    /*
+                      f1.BeginInvoke(new Action(() => {
+                          messageScreen.setCheckBox(false);
+                      }));
+                 */
                     
                     byte[] data = new byte[1024];
                     int size = client.Receive(data);
                     string s = Encoding.ASCII.GetString(data, 0, size);
-                    string[] mData = s.Split(':');
-                    addMessage(new Message(s, Message.Side.Left, mCount));
-                    displayBalloon(s);
-
+                    char type = s[0];
+                    s = s.Remove(0, 1);
+                    if (type == 'm') {
+                        string[] mData = s.Split(':');
+                        addMessage(new Message(s, Message.Side.Left, mCount));
+                        displayBalloon(s);
+                    }
                 }
 
 
@@ -112,9 +134,12 @@ namespace Chat_Client {
         }
 
         public static void sendMessage(string msg) {
-            msg = username + ":" + msg;
+
+            msg = "m" + username + ":" + msg;
             byte[] bmsg = Encoding.ASCII.GetBytes(msg);
+      
             client.Send(bmsg);
+
         }
 
         public static void addMessage(Message msg) {

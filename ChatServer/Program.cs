@@ -52,11 +52,13 @@ namespace ChatServer {
                 while (true) {
                    
                     byte[] data = new byte[1024];
-                 
                     int size = hndl.Receive(data); //handler
-                    
                     string s = Encoding.ASCII.GetString(data, 0, size);
-                    queue.Add(new QueuedMessage(id, s));
+                    char type = s[0];
+                    s = s.Remove(0, 1);
+
+                    if (type == 'm') queue.Add(new QueuedMessage(id, s));
+                    if (type == 'p') send("p", hndl);
                    // send("echo " + s, hndl);
 
                 }
@@ -83,10 +85,19 @@ namespace ChatServer {
                 Console.WriteLine(i);
                 client.Add(new Thread(() => listen(handler[i], i)));
                 client[i].Start();
-                send("SERVER: Connected to " + "68.101.98.197" + " on " + serverEP.Port, handler[i]);
+                send("mSERVER: Connected to " + "68.101.98.197" + " on " + serverEP.Port, handler[i]);
                 //i++;
                 //handler.Shutdown(SocketShutdown.Both);
                 //handler.
+            }
+        }
+
+        static void pingClients() {
+            while (true) {
+                for (int i = 0; i < handler.Count; i++) {
+                    send("p", handler[i]);
+                }
+                Thread.Sleep(5000);
             }
         }
 
@@ -102,7 +113,7 @@ namespace ChatServer {
                             for (int n = 0; n < handler.Count; n++) {
                                 if (handler[n] == null) break;
                                 if (queue[i].clientID == n) continue;
-                                send(queue[i].message, handler[n]);
+                                send("m"+queue[i].message, handler[n]);
                             }
                             queue.RemoveAt(i);
                         }
